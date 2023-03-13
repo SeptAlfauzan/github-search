@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DetailUserActivity">
+
+    <ProgressBar
+        android:id="@+id/detail_loading"
+        android:layout_gravity="center"
+        android:elevation="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:visibility="gone"
+        />
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:fillViewport="true">
+        <LinearLayout
+            android:id="@+id/detail_main_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include
+                android:id="@+id/card_detail"
+                layout="@layout/card_detail_user" />
+
+            <TextView
+                android:id="@+id/detail_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="college student"
+                android:textSize="16sp" />
+
+            <include
+                android:id="@+id/email_info"
+                layout="@layout/email_info" />
+
+            <include
+                android:id="@+id/twitter_info"
+                layout="@layout/twitter_info" />
+
+            <include
+                android:id="@+id/follower_info"
+                layout="@layout/follow_info" />
+
+            <include
+                android:id="@+id/following_info"
+                layout="@layout/follow_info" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:tabTextColor="?attr/colorPrimaryVariant" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
