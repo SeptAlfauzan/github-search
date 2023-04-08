@@ -1,24 +1,21 @@
-package com.example.githubprofile
+package com.example.githubprofile.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubprofile.adapter.UserRecyclerViewAdapter
+import com.example.githubprofile.config.helper.ViewModelHelper
 import com.example.githubprofile.databinding.FragmentFollowerBinding
-import com.example.githubprofile.viewModel.MainViewModel
 
 class FollowerFragment : Fragment() {
 
     private var _binding: FragmentFollowerBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,11 +43,10 @@ class FollowerFragment : Fragment() {
             this.layoutManager = layoutManager
         }
 
+        val viewModel = ViewModelHelper.obtainViewModel(requireActivity() as AppCompatActivity)
 
-        viewModel.follower.observe(viewLifecycleOwner){
-            adapter.updateData(it)
-        }
-        viewModel.isLoading.observe(viewLifecycleOwner){ isLoading(it) }
+        viewModel.isFollowerLoading.observe(viewLifecycleOwner){ isLoading(it) }
+        viewModel.follower.observe(viewLifecycleOwner){ adapter.updateData(it) }
 
         if(viewModel.follower.value == null){
             viewModel.getFollower(username ?: "")
@@ -76,7 +72,7 @@ class FollowerFragment : Fragment() {
             binding.recyclerviewFollowerContainer.visibility = View.GONE
             binding.followerError.textError.visibility = View.GONE
         }else{
-            binding.followerLoading.visibility = View.GONE
+            binding.followerLoading.visibility = View.INVISIBLE
             binding.recyclerviewFollowerContainer.visibility = View.VISIBLE
         }
     }

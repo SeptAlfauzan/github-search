@@ -14,17 +14,26 @@
         android:theme="@style/Theme.GithubProfile"
         tools:targetApi="31">
         <activity
-            android:name=".DetailUserActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:name=".ui.SplashScreenAcitivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.FavoriteUsersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.DetailUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -2,4 +2,9 @@
     <string name="app_name">Github Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="github_profile_search">Github Profile Search</string>
+    <string name="favorite_title">Favorite User</string>
+    <string name="description">college student</string>
+    <string name="image_user">image_user</string>
+    <string name="no_data">No data</string>
 </resources>

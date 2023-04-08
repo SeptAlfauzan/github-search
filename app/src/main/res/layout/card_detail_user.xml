@@ -10,7 +10,6 @@
         android:paddingRight="16dp"
         android:paddingTop="32dp"
         android:paddingBottom="32dp"
-        android:background="@color/material_on_surface_stroke"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
@@ -26,7 +25,7 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/detail_name"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Error"
@@ -35,7 +34,7 @@
                 />
             <TextView
                 android:id="@+id/detail_username"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="username"

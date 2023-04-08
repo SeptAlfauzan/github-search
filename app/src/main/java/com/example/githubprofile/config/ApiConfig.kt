@@ -1,5 +1,6 @@
 package com.example.githubprofile.config
 
+import com.example.githubprofile.BuildConfig
 import com.example.githubprofile.interfaces.ApiServices
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,7 +14,14 @@ class ApiConfig {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
+                .addInterceptor { chain ->
+                    val original = chain.request()
+                    val requestBuilder = original.newBuilder()
+                        .header("Authorization", "token ${BuildConfig.API_KEY}")
+                        .method(original.method, original.body)
+                    val request = requestBuilder.build()
+                    chain.proceed(request)
+                }
                 .build()
             val retrofit = Retrofit.Builder().apply {
                 this.baseUrl(BASE_URL)

@@ -1,31 +1,27 @@
-package com.example.githubprofile
+package com.example.githubprofile.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubprofile.adapter.UserRecyclerViewAdapter
+import com.example.githubprofile.config.helper.ViewModelHelper
 import com.example.githubprofile.databinding.FragmentFollowingBinding
-import com.example.githubprofile.response.UserResponse
-import com.example.githubprofile.viewModel.MainViewModel
 
 class FollowingFragment : Fragment() {
 
-    lateinit var binding: FragmentFollowingBinding
-    val viewModel: MainViewModel by viewModels()
+    private var _binding: FragmentFollowingBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFollowingBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
+        _binding = FragmentFollowingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,12 +42,10 @@ class FollowingFragment : Fragment() {
             this.layoutManager = layoutManager
         }
 
+        val viewModel = ViewModelHelper.obtainViewModel(requireActivity() as AppCompatActivity)
 
-        viewModel.following.observe(viewLifecycleOwner){
-            adapter.updateData(it)
-        }
-
-        viewModel.isLoading.observe(viewLifecycleOwner){ isLoading(it) }
+        viewModel.isFollowingLoading.observe(viewLifecycleOwner){ isLoading(it) }
+        viewModel.following.observe(viewLifecycleOwner){ adapter.updateData(it) }
 
         if(viewModel.following.value == null){
             viewModel.getFollowing(username ?: "")
@@ -59,7 +53,6 @@ class FollowingFragment : Fragment() {
 
         binding.followingError.textError.visibility = (if(viewModel.following.value == null) View.VISIBLE else View.GONE)
     }
-
     private fun navigateToDetail(userId: String){
         val bundle = Bundle().apply {
             putString(DetailUserActivity.USERNAME, userId)
@@ -69,14 +62,13 @@ class FollowingFragment : Fragment() {
         }
         startActivity(intent)
     }
-
     private fun isLoading(status: Boolean){
         if(status){
             binding.followingLoading.visibility = View.VISIBLE
             binding.recyclerviewFollowingContainer.visibility = View.GONE
             binding.followingError.textError.visibility = View.GONE
         }else{
-            binding.followingLoading.visibility = View.GONE
+            binding.followingLoading.visibility = View.INVISIBLE
             binding.recyclerviewFollowingContainer.visibility = View.VISIBLE
         }
     }
